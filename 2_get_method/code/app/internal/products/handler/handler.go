@@ -3,7 +3,6 @@ package handler
 import (
 	"clase2/internal/products/storage"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -55,15 +54,16 @@ func (h *ProductHandler) HealthCheck() http.HandlerFunc {
 
 func (h *ProductHandler) GetProducts() http.HandlerFunc {
 	return func (w http.ResponseWriter, r *http.Request) {
-		jsonData, err := json.Marshal(h.data)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		// jsonData, err := json.Marshal(h.data)
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(http.StatusOK)
-		w.Write(jsonData)
+		json.NewEncoder(w).Encode(h.data)
+		//w.Write(jsonData)
 	}
 }
 
