@@ -137,11 +137,7 @@ func (h *ProductHandler) Create() http.HandlerFunc {
 			Price: body.Price,
 		}
 
-		// autoincrement id
-		(*h).lastID++
-		// set id
-		product.ID = (*h).lastID
-
+		
 		// validate if code value already exists
 		for _, p := range (*h).data {
 			if product.CodeValue == p.CodeValue {
@@ -151,7 +147,12 @@ func (h *ProductHandler) Create() http.HandlerFunc {
 				return
 			}
 		}
-
+		
+		// autoincrement id
+		(*h).lastID++
+		// set id
+		product.ID = (*h).lastID
+		
 		// store product
 		(*h).data[product.ID] = product
 
